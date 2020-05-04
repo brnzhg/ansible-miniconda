@@ -34,7 +34,7 @@
     - remove miniconda setup script
     - update conda to latest version
     
- - name: install base condarc
+- name: install base condarc
   sudo: no
   copy: src={{ item }} dest="~/.{{ item }}"
   with_items:
