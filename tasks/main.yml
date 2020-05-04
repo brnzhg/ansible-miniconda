@@ -15,7 +15,7 @@
 - name: install miniconda
   shell: "/tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash"
   register: miniconda_installed
-  when: miniconda_downloaded | success
+  when: miniconda_downloaded is succeeded
   notify:
     - remove miniconda setup script
     - update conda to latest version
@@ -35,5 +35,5 @@
 
 - name: create environments
   shell: "{{ miniconda_home }}/bin/conda create --yes -q -n {{ item.name }} python={{ item.python_version }} {{ item.pkgs }} creates={{ miniconda_home }}/envs/{{ item.name }}"
-  when: miniconda_installed | success
+  when: miniconda_installed is succeeded
   with_items: miniconda_environments
