@@ -1,7 +1,7 @@
 ---
 # necessary steps to configure the role
 - name: install base condarc
-  copy: src={{ miniconda_rc_src }} dest="~/.condarc"
+  copy: src={{ miniconda_condarc_src }} dest="~/.condarc"
   when: miniconda_add_condarc
 
 - name: add miniconda to the PATH
