@@ -16,3 +16,4 @@ miniconda_modify_path: no
 miniconda_rcfile: '~/.bashrc'
 
 miniconda_add_condarc: yes
+miniconda_condarc_src: 'condarc'

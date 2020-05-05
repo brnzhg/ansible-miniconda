@@ -1,15 +1,10 @@
 ---
 # necessary steps to configure the role
-
 - name: install base condarc
-  sudo: no
-  copy: src={{ item }} dest="~/.{{ item }}"
-  with_items:
-    - condarc
+  copy: src={{ miniconda_rc_src }} dest="~/.condarc"
   when: miniconda_add_condarc
 
 - name: add miniconda to the PATH
-  sudo: no
   lineinfile:
     dest: "{{ miniconda_rcfile }}"
     line: export PATH={{ miniconda_home }}/bin:$PATH
@@ -17,7 +12,6 @@
   when: miniconda_modify_path
 
 - name: create environments
-  sudo: no
   shell: "{{ miniconda_home }}/bin/conda create --yes -q -n {{ item.name }} python={{ item.python_version }} {{ item.pkgs }} creates={{ miniconda_home }}/envs/{{ item.name }}"
-  when: miniconda_installed | success
-  with_items: miniconda_environments
+  when: miniconda_installed is succeeded
+  with_items: "{{ miniconda_environments | default([]) }}"
